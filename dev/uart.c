@@ -1,4 +1,4 @@
-typedef unsigned int uint;
+#include "types.h"
 
 #define UART0_BASE	0x20201000
 #define UART0_DR	((volatile uint*)(UART0_BASE+0x00))	//Data register

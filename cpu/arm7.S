@@ -18,13 +18,13 @@ _vectors:
     ldr pc, _fast_int_h
 
 _reset_h:		.word _start
-_undef_instr_h:	.word _interrupt
-_soft_int_h:	.word _interrupt
-_pref_abort_h:	.word _interrupt
-_data_abort_h:	.word _interrupt
-_unused_h:		.word _interrupt
+_undef_instr_h:	.word _start
+_soft_int_h:	.word _start
+_pref_abort_h:	.word _start
+_data_abort_h:	.word _start
+_unused_h:		.word _start
 _irq_int_h:		.word _interrupt
-_fast_int_h:	.word _interrupt
+_fast_int_h:	.word _start
 
 
 // ############################
@@ -73,7 +73,7 @@ _interrupt:
 	mov r2, sp
 	msr cpsr, #0xDF
 	mov sp, r2
-//	bl interrupt_handler
+	bl interrupt_handler
 
 	//Restore context
 	pop {r0-r1}

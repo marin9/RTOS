@@ -1,12 +1,10 @@
-
-
-void uart_init();
-int uart_read(int unit, void* buffer, int size);
-int uart_write(int unit, void* buffer, int size);
-
+#include "cpu.h"
+#include "device.h"
 
 int len;
 char buffer[128];
+
+//TODO include folder unutar svakog
 
 
 void main(){
