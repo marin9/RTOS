@@ -4,8 +4,6 @@
 int len;
 char buffer[128];
 
-//TODO include folder unutar svakog
-
 
 void main(){
 	uart_init();
