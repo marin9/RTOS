@@ -1,4 +1,5 @@
 #pragma once
+#include "types.h"
 
 #define NULL	0
 

@@ -1,11 +1,5 @@
 #pragma once
 
-#define offsetof(TYPE, MEMBER) ((int) &((TYPE *)0)->MEMBER)
-
-#define container_of(ptr, type, member) ({                      \
-        const typeof( ((type *)0)->member ) *__mptr = (ptr);    \
-        (type *)( (char *)__mptr - offsetof(type,member) );})
-
 
 typedef struct node_t{
 	struct node_t *next;
