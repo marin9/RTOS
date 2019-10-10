@@ -1,9 +1,17 @@
 #include "cpu.h"
 #include "device.h"
-
+#include "types.h"
 int len;
 char buffer[128];
 
+
+typedef struct{
+	int a;
+	int b;
+} ab;
+
+
+ab x;
 
 void main(){
 	uart_init();
@@ -16,6 +24,8 @@ void main(){
 		uart_write(0, buffer, 10);
 	}
 
+	ab *aa=(ab*)container_of(&x.b ,ab, b);
+	aa=aa;
 }
 
 
