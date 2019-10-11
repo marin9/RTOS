@@ -1,0 +1,64 @@
+timeout, no-block, block
+
+TASK:
+	int task_create(func_t fn, void *param, int prio, char *name);
+	int task_terminate(int id);
+	int task_self_terminate();
+	int task_suspend(int id);
+	int task_resume(int id);
+	int task_set_prio(int id, int p);
+	int task_get_prio(int id);
+	int task_sleep(int ms); // 0-yield
+	int task_join(int id);
+	int task_get_status(int id);
+	char* task_getname(int id);
+	int task_getid();	
+
+SEM:
+	int sem_init(sem_t *s, int val);
+	int sem_take(sem_t *s);
+	int sem_give(sem_t *s);
+
+MUTEX:
+	int mutex_init(mutex_t *m);
+	int mutex_lock(mutex_t *m);
+	int mutex_unlock(mutex_t *m);
+
+COND:
+	int cond_init(cond_t *c);
+	int cond_wait(cond_t *c, mutex_t *m);
+	int cond_signal(cond_t *c, int broadcast);
+
+FLAGS:
+	int flags_init(int id);
+	int flags_get(int id);
+	int flags_set(int id, int f);
+	int flags_wait(int id, int f, int type);
+
+MBOX:
+	int mbox_init(int id);
+	int mbox_send(int id, msg_t *m, int prio);
+	int mbox_recv(int id, msg_t *m);
+
+RINGBUF:
+	void ringbuf_init(ringbuf_t *rb, char *buf, int size);
+	int ringbuf_send(ringbuf_t *rb, char *data, int size);
+	int ringbuf_recv(ringbuf_t *rb, char data, int size);
+	int ringbuf_full(ringbuf_t *rb);
+	int ringbuf_empty(ringbuf_t *rb);
+
+LIST:
+	void list_init(list_t *l);
+	void list_pushF(list_t *l, node_t *n);
+	void list_pushL(list_t *l, node_t *n);
+	node_t *n list_popF(list_t *l);
+	node_t *n list_popL(list_t *l);
+	node_t *n list_peekF(list_t *l);
+	node_t *n list_peekL(list_t *l);
+	void list_remove(list_t *l, node_t *n);
+	int list_count(list_t *l);
+
+TIME:
+	time_getticks();
+	time_delayus(int us);
+
