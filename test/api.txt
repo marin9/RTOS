@@ -32,6 +32,7 @@ COND:
 FLAGS:
 	int flags_init(int id);
 	int flags_get(int id);
+	int flags_clr(int id); // ?
 	int flags_set(int id, int f);
 	int flags_wait(int id, int f, int type);
 
@@ -61,4 +62,10 @@ LIST:
 TIME:
 	time_getticks();
 	time_delayus(int us);
+// ###########################
+task_new
+task_sleep
+task_term
+sem_wait
+sem_post
 
