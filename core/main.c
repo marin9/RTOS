@@ -22,6 +22,9 @@ void main(){
 	interrupt_init();
 	timer_init();
 
+	gpio_open(47, GP_OUT);
+	gpio_write(47, 1);
+
 
 	pic_enable(SYSTMR1_IRQ);
 	interrupt_register(SYSTMR1_IRQ, fn);
@@ -34,7 +37,10 @@ void main(){
 		while(len<10)
 			len+=uart_read(0, buffer+len, 10-len);
 
+		gpio_write(47, 0);
 		uart_write(0, buffer, 10);
+		timer_wait(1000000);
+		gpio_write(47, 1);
 	}
 
 }
