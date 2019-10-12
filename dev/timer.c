@@ -1,6 +1,6 @@
+#include "rpi.h"
 #include "types.h"
 
-#define SYSTMR_BASE		0x20003000
 #define SYS_TIMER_CS	((volatile uint*)(SYSTMR_BASE+0x00))
 #define SYS_TIMER_CLO	((volatile uint*)(SYSTMR_BASE+0x04))
 #define SYS_TIMER_CHI	((volatile uint*)(SYSTMR_BASE+0x08))
@@ -18,4 +18,9 @@ void timer_set(uint us){
 
 uint timer_get(){
 	return *SYS_TIMER_CLO;
+}
+
+void timer_wait(uint us){
+	uint tv=timer_get()+us;
+	while(tv>timer_get());
 }

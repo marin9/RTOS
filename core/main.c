@@ -1,12 +1,18 @@
 #include "cpu.h"
 #include "device.h"
 #include "types.h"
+
+
 int len;
-char buffer[128];
+char buffer[32];
 
 
 void main(){
 	uart_init();
+
+
+	timer_wait(4*1000*1000);
+	uart_print("RTOS\r\n");
 
 	while(1){
 		len=0;

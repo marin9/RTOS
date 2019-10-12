@@ -46,7 +46,7 @@ _init:
   	ldmia   r0!,{r2, r3, r4, r5, r6, r7, r8, r9}
   	stmia   r1!,{r2, r3, r4, r5, r6, r7, r8, r9}
 
-  	bl enable_l2cache
+  	//bl enable_l2cache
 	bl main
 	b .
 

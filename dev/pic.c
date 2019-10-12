@@ -1,6 +1,6 @@
+#include "rpi.h"
 #include "types.h"
 
-#define IRQ_BASE			0x2000B000
 #define IRQ_PENDING_BASIC	((volatile uint*)(IRQ_BASE+0x200))
 #define IRQ_PENDING1		((volatile uint*)(IRQ_BASE+0x204))
 #define IRQ_PENDING2		((volatile uint*)(IRQ_BASE+0x208))

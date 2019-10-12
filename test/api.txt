@@ -9,6 +9,7 @@ TASK:
 	int task_set_prio(int id, int p);
 	int task_get_prio(int id);
 	int task_sleep(int ms); // 0-yield
+	int task_wakeup(int id);
 	int task_join(int id);
 	int task_get_status(int id);
 	char* task_getname(int id);

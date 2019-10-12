@@ -1,6 +1,6 @@
+#include "rpi.h"
 #include "types.h"
 
-#define UART0_BASE	0x20201000
 #define UART0_DR	((volatile uint*)(UART0_BASE+0x00))	//Data register
 #define UART0_RSR	((volatile uint*)(UART0_BASE+0x04))	//Receive status register
 #define UART0_ECR	((volatile uint*)(UART0_BASE+0x04))	//Error clear register
@@ -17,7 +17,6 @@
 #define UART0_DMACR	((volatile uint*)(UART0_BASE+0x48))	//DMA control register
 
 
-#define GPIO_BASE	0x20200000
 #define GPFSEL1     ((volatile uint*)(GPIO_BASE+0x04))
 #define GPPUD       ((volatile uint*)(GPIO_BASE+0x94))
 #define GPPUDCLK0   ((volatile uint*)(GPIO_BASE+0x98))
@@ -71,6 +70,14 @@ void uart_init(){
     for(i=0;i<32;++i){
     	*UART0_DR;
     }
+}
+
+void uart_print(char *s){
+	while(*s){
+		while((*UART0_FR)&(1<<5));
+		*UART0_DR=*s;
+		++s;
+	}
 }
 
 static int uart_send(int c){
