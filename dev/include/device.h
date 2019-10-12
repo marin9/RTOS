@@ -22,6 +22,7 @@
 
 
 void timer_init();
+void timer_clr();
 uint timer_get();
 void timer_set(uint us);
 void timer_wait(uint us);

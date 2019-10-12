@@ -1,18 +1,33 @@
 #include "cpu.h"
-#include "device.h"
+#include "rpi.h"
 #include "types.h"
+#include "device.h"
+#include "interrupt.h"
 
 
 int len;
 char buffer[32];
 
 
+void fn(){
+	uart_print("M\r\n");
+
+	timer_set(1000000);
+}
+
+
 void main(){
 	uart_init();
+	pic_init();
+	interrupt_init();
+	timer_init();
 
 
-	timer_wait(4*1000*1000);
-	uart_print("RTOS\r\n");
+	pic_enable(SYSTMR1_IRQ);
+	interrupt_register(SYSTMR1_IRQ, fn);
+	timer_set(1000000);
+	interrupts_enable();
+
 
 	while(1){
 		len=0;
