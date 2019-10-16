@@ -63,10 +63,11 @@ LIST:
 TIME:
 	time_getticks();
 	time_delayus(int us);
-// ###########################
-task_new
-task_sleep
-task_term
-sem_wait
-sem_post
+
+MEM:
+	mem_init
+	mem_alloc
+	mem_calloc
+	mem_free
+
 
