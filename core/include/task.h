@@ -1,6 +1,9 @@
 #pragma once
 #include "types.h"
 
+#define TASK_DORMANT	0
+#define TASK_READY		1
+
 
 typedef struct{
 	uint *sp;
@@ -18,54 +21,7 @@ typedef struct{
 } task_queue_t;
 
 
-
-void task_queue_init(task_queue_t *q){
-	q->first=0;
-	q->last=0;
-}
-
-void task_enqueue(task_queue_t *q, task_t *t){
-	if(q->first==0){
-		t->next=0;
-		t->prev=0;
-
-		q->first=t;
-		q->last=t;
-	}else{
-		t->next=0;
-		t->prev=q->last;
-		q->flast->next=t;
-		q->last=t;
-	}
-}
-
-task_t* task_dequeue(task_queue_t *q){
-	task_t *tmp=q->first;
-
-	if(!tmp){
-		return 0;
-	}
-
-	q->first=tmp->next;
-
-	if(q->first)
-		q->first->prev=0;
-	else
-		q->last=0;
-
-	if(q->first)
-
-	tmp->next=0;
-	tmp->prev=0;
-	return tmp;
-}
-
-void task_remove(task_queue_t *q, task_t *t){
-
-
-
-
-
-
-
-}
+void task_queue_init(task_queue_t *q);
+void task_enqueue(task_queue_t *q, task_t *t);
+void task_remove(task_queue_t *q, task_t *t);
+task_t* task_dequeue(task_queue_t *q);

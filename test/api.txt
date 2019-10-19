@@ -64,10 +64,13 @@ TIME:
 	time_getticks();
 	time_delayus(int us);
 
+MEM_POOL:
+	mpool_init
+	mpool_alloc
+
 MEM:
 	mem_init
 	mem_alloc
 	mem_calloc
 	mem_free
-
 
