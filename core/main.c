@@ -1,10 +1,11 @@
 #include "cpu.h"
 #include "rpi.h"
+#include "task.h"
 #include "types.h"
 #include "device.h"
 #include "interrupt.h"
 
-
+/*
 int len;
 char buffer[32];
 
@@ -13,6 +14,15 @@ void fn(){
 	uart_print("M\r\n");
 
 	timer_set(1000000);
+}*/
+
+char main_stack[1024] __attribute__((aligned(8)));
+
+void main_task(){
+	while(1){
+		uart_print("MAIN\r\n");
+		task_yield();
+	}
 }
 
 
@@ -21,7 +31,7 @@ void main(){
 	pic_init();
 	interrupt_init();
 	timer_init();
-
+/*
 	gpio_open(47, GP_OUT);
 	gpio_write(47, 1);
 
@@ -41,8 +51,17 @@ void main(){
 		uart_write(0, buffer, 10);
 		timer_wait(1000000);
 		gpio_write(47, 1);
-	}
+	}*/
 
+
+	timer_wait(5000000);
+	uart_print("1\r\n");
+
+	task_init();
+
+	task_create(main_task, 0, 0, main_stack, 1024, "main");
+
+	task_sched_start();
 }
 
 
