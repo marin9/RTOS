@@ -3,4 +3,4 @@
 typedef unsigned int uint;
 typedef unsigned char uchar;
 typedef unsigned short ushort;
-typedef void (*func)();
+typedef void (*func)(void *args);

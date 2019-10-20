@@ -1,6 +1,18 @@
 #pragma once
 #include "types.h"
 
+#define CPSR_MODE_FIQ	0x11
+#define CPSR_MODE_IRQ	0x12
+#define CPSR_MODE_SVC	0x13
+#define CPSR_MODE_ABT	0x17
+#define CPSR_MODE_UND	0x1b
+#define CPSR_MODE_SYS	0x1f
+
+#define CPSR_FLAG_T		0x20
+#define CPSR_FLAG_F		0x40
+#define CPSR_FLAG_I		0x80
+
+
 typedef struct{
 	uint r0;
 	uint r1;

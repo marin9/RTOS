@@ -2,8 +2,13 @@
 #include "rpi.h"
 #include "task.h"
 #include "types.h"
+#include "mpool.h"
+#include "string.h"
 #include "device.h"
 #include "interrupt.h"
+
+//TODO spi_init(pins)
+
 
 /*
 int len;
@@ -21,9 +26,14 @@ char main_stack[1024] __attribute__((aligned(8)));
 void main_task(){
 	while(1){
 		uart_print("MAIN\r\n");
+		timer_wait(100000);
 		task_yield();
 	}
 }
+
+
+
+
 
 
 void main(){
@@ -54,14 +64,18 @@ void main(){
 	}*/
 
 
+
+
 	timer_wait(5000000);
 	uart_print("1\r\n");
 
 	task_init();
 
-	task_create(main_task, 0, 0, main_stack, 1024, "main");
+	task_create(main_task, 0, 0, 1024, "main");
 
 	task_sched_start();
+
+
 }
 
 

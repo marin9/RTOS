@@ -4,7 +4,9 @@
 #include "types.h"
 #include "string.h"
 
-static char idle_stack[IDLE_STACK] __attribute__((aligned(8)));
+static char* stack_next;
+static char stack[STACK_SPACE] \
+	__attribute__((aligned(8)));
 
 static uint active_task;
 static task_t task[TASK_COUNT];
@@ -71,7 +73,7 @@ void task_remove(task_queue_t *q, task_t *t){
 
 static void task_idle(){
 	while(1){
-		uart_print("IDLE\r\n");
+		uart_print(" IDLE\r\n");
 		task_yield();
 	}
 }
@@ -91,8 +93,9 @@ void task_init(){
 	for(i=0;i<TASK_COUNT;++i){
 		task[i].status=0;
 	}
+	stack_next=stack;
 	active_task=0;
-	task_create(task_idle, 0, 0, idle_stack, IDLE_STACK, "idle");
+	task_create(task_idle, 0, 0, 64, "idle");
 }
 
 void task_sched_start(){
@@ -111,7 +114,7 @@ void task_sched_start(){
 	context_switch(0, new);
 }
 
-int task_create(func fn, void *args, uint prio, void *stack, uint size, char *name){
+int task_create(func fn, void *args, uint prio, uint stack, char *name){
 	if(!fn){
 		return -1;
 	}
@@ -132,7 +135,7 @@ int task_create(func fn, void *args, uint prio, void *stack, uint size, char *na
 
 	task[i].id=i;
 	task[i].prio=prio;
-	task[i].sp=(uint*)((char*)stack+size-4);
+	task[i].sp=(uint*)(stack_next+stack-4);
 	task[i].sp-=sizeof(context_t);
 	task[i].status=TASK_READY;
 	if(name){
@@ -140,6 +143,7 @@ int task_create(func fn, void *args, uint prio, void *stack, uint size, char *na
 	}else{
 		strcpy(task[i].name, "no_name");
 	}
+	stack_next+=stack;
 
 	context_t *ctx=(context_t*)task[i].sp;
 	context_create(ctx, fn, args, task_reap);
