@@ -74,7 +74,6 @@ void task_remove(task_queue_t *q, task_t *t){
 
 static void task_idle(){
 	while(1){
-		uart_print(" IDLE\r\n");
 		time_delay(500000);
 	}
 }
@@ -166,7 +165,8 @@ void task_yield(){
 	}
 
 	old=&task[active_task];
-	task_enqueue(&queue_ready[old->prio], old);
+	if(old->status!=TASK_DORMANT)
+		task_enqueue(&queue_ready[old->prio], old);
 
 	for(i=PRIO_COUNT-1;i>=0;--i){
 		new=task_dequeue(&queue_ready[i]);

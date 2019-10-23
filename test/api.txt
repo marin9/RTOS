@@ -1,5 +1,5 @@
 TASK:
-+	int task_create(func_t fn, void *param, int prio, char *name);
++	int task_create(func fn, void *args, uint prio, uint stack, char *name);
 	int task_terminate(int id);
 	int task_self_terminate();
 	int task_suspend(int id);
@@ -63,8 +63,8 @@ TIME:
 +	time_delayus(int us);
 
 MEM_POOL:
-	mpool_init
-	mpool_alloc
++	mpool_init
++	mpool_alloc
 
 MEM:
 	mem_init
