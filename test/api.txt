@@ -1,7 +1,5 @@
-timeout, no-block, block
-
 TASK:
-	int task_create(func_t fn, void *param, int prio, char *name);
++	int task_create(func_t fn, void *param, int prio, char *name);
 	int task_terminate(int id);
 	int task_self_terminate();
 	int task_suspend(int id);
@@ -61,8 +59,8 @@ LIST:
 	int list_count(list_t *l);
 
 TIME:
-	time_getticks();
-	time_delayus(int us);
++	time_getticks();
++	time_delayus(int us);
 
 MEM_POOL:
 	mpool_init
@@ -73,4 +71,9 @@ MEM:
 	mem_alloc
 	mem_calloc
 	mem_free
+
+block,
+no-block,
+timeout
+
 

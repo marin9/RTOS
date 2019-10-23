@@ -8,6 +8,7 @@ static char* stack_next;
 static char stack[STACK_SPACE] \
 	__attribute__((aligned(8)));
 
+static uint sched_running;
 static uint active_task;
 static task_t task[TASK_COUNT];
 static task_queue_t queue_ready[PRIO_COUNT];
@@ -74,7 +75,7 @@ void task_remove(task_queue_t *q, task_t *t){
 static void task_idle(){
 	while(1){
 		uart_print(" IDLE\r\n");
-		task_yield();
+		time_delay(500000);
 	}
 }
 
@@ -95,12 +96,15 @@ void task_init(){
 	}
 	stack_next=stack;
 	active_task=0;
+	sched_running=0;
 	task_create(task_idle, 0, 0, 64, "idle");
 }
 
 void task_sched_start(){
 	int i;
 	task_t *new;
+
+	sched_running=1;
 
 	for(i=PRIO_COUNT-1;i>=0;--i){
 		new=task_dequeue(&queue_ready[i]);
@@ -110,7 +114,6 @@ void task_sched_start(){
 	}
 	
 	active_task=new->id;
-
 	context_switch(0, new);
 }
 
@@ -157,6 +160,10 @@ void task_yield(){
 	int i;
 	task_t *old;
 	task_t *new;
+
+	if(!sched_running){
+		return;
+	}
 
 	old=&task[active_task];
 	task_enqueue(&queue_ready[old->prio], old);
