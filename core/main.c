@@ -10,6 +10,7 @@
 
 
 void test1();
+void test2();
 
 
 void main(){
@@ -20,6 +21,6 @@ void main(){
 	task_init();
 	time_init();
 
-	task_create(test1, 0, 0, 1024, "main");
+	task_create(test2, 0, 0, 1024, "main");
 	task_sched_start();
 }

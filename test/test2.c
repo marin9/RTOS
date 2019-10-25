@@ -9,11 +9,13 @@ static void task(void *args){
 		uart_print(name);
 		uart_print("\r\n");
 		time_delay(1000000);
+
+		//TODO
 	}
 }
 
 
-void test1(){
+void test2(){
 	os_task_create(task, "T 0", 0, 1024, 0);
 	os_task_create(task, "T  1", 0, 1024, 0);
 	os_task_create(task, "T   2", 0, 1024, 0);

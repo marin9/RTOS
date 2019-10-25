@@ -9,9 +9,9 @@ TASK:
 	int task_sleep(int ms); // 0-yield
 	int task_wakeup(int id);
 	int task_join(int id);
-	int task_get_status(int id);
-	char* task_getname(int id);
-	int task_getid();	
++	int task_get_status(int id);
++	char* task_getname(int id);
++	int task_getid();	
 
 SEM:
 	int sem_init(sem_t *s, int val);

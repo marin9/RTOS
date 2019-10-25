@@ -30,3 +30,16 @@ void os_task_yield(){
 	task_yield();
 	sys_exit(sr);
 }
+
+int os_task_getname(uint id, char *name){
+	return task_getname(id, name);
+}
+
+int os_task_getstat(uint id){
+	return task_getstat(id);
+}
+
+int os_task_getid(){
+	return task_getid();
+}
+

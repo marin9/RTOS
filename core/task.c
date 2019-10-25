@@ -155,6 +155,26 @@ int task_create(func fn, void *args, uint prio, uint stack, char *name){
 	return i;
 }
 
+int task_getname(uint id, char *name){
+	if(id>TASK_COUNT){
+		return -ERR_NOEXIST;
+	}
+
+	if(task[id].status==TASK_DORMANT){
+		return -ERR_NORES;
+	}
+
+	strcpy(name, task[id].name);
+	return 0;
+}
+
+int task_getstat(uint id){
+	if(id>TASK_COUNT)
+		return -ERR_NOEXIST;
+	else
+		return task[id].status;
+}
+
 int task_term(uint id){
 	if(id==active_task){
 		task_reap();
@@ -171,6 +191,10 @@ int task_term(uint id){
 	}
 
 	return 0;
+}
+
+int task_getid(){
+	return active_task;
 }
 
 void task_yield(){
