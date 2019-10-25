@@ -1,7 +1,7 @@
 TASK:
 +	int task_create(func fn, void *args, uint prio, uint stack, char *name);
-	int task_terminate(int id);
-	int task_self_terminate();
++	int task_terminate(uint id);
++	int task_self_terminate();
 	int task_suspend(int id);
 	int task_resume(int id);
 	int task_set_prio(int id, int p);

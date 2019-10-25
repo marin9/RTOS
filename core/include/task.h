@@ -29,4 +29,5 @@ task_t* task_dequeue(task_queue_t *q);
 void task_init();
 void task_sched_start();
 int task_create(func fn, void *args, uint prio, uint stack, char *name);
+int task_term(uint id);
 void task_yield();

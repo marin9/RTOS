@@ -2,6 +2,7 @@
 #include "task.h"
 #include "param.h"
 #include "types.h"
+#include "errno.h"
 #include "string.h"
 
 static char* stack_next;
@@ -73,9 +74,7 @@ void task_remove(task_queue_t *q, task_t *t){
 
 
 static void task_idle(){
-	while(1){
-		time_delay(500000);
-	}
+	while(1);
 }
 
 static void task_reap(){
@@ -87,12 +86,15 @@ static void task_reap(){
 
 void task_init(){
 	int i;
+
 	for(i=0;i<PRIO_COUNT;++i){
 		task_queue_init(&queue_ready[i]);
 	}
+
 	for(i=0;i<TASK_COUNT;++i){
 		task[i].status=0;
 	}
+
 	stack_next=stack;
 	active_task=0;
 	sched_running=0;
@@ -117,18 +119,16 @@ void task_sched_start(){
 }
 
 int task_create(func fn, void *args, uint prio, uint stack, char *name){
+	int i;
+
 	if(!fn){
-		return -1;
+		return -ERR_ARGS;
 	}
 
-	interrupts_disable();
-
-	int i;
 	for(i=0;i<TASK_COUNT;++i){
 		if(!task[i].status){
 			if(i>=TASK_COUNT){
-				interrupts_enable();
-				return -2;
+				return -ERR_NORES;
 			}else{
 				break;
 			}
@@ -140,19 +140,37 @@ int task_create(func fn, void *args, uint prio, uint stack, char *name){
 	task[i].sp=(uint*)(stack_next+stack-4);
 	task[i].sp-=sizeof(context_t);
 	task[i].status=TASK_READY;
-	if(name){
+
+	if(name)
 		strcpy(task[i].name, name);
-	}else{
+	else
 		strcpy(task[i].name, "no_name");
-	}
+
 	stack_next+=stack;
 
 	context_t *ctx=(context_t*)task[i].sp;
 	context_create(ctx, fn, args, task_reap);
 
 	task_enqueue(&queue_ready[prio], &task[i]);
-	interrupts_enable();
 	return i;
+}
+
+int task_term(uint id){
+	if(id==active_task){
+		task_reap();
+	}
+
+	if(id>TASK_COUNT){
+		return -ERR_NOEXIST;
+	}
+
+	if(task[id].status==TASK_READY){
+		task[id].status=TASK_DORMANT;
+		task_remove(&queue_ready[task[id].prio], &task[id]);
+		task_yield();
+	}
+
+	return 0;
 }
 
 void task_yield(){
@@ -175,5 +193,5 @@ void task_yield(){
 		}
 	}
 	active_task=new->id;
-	context_switch(old, new); 	
+	context_switch(old, new);
 }

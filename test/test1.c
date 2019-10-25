@@ -1,4 +1,5 @@
-#include "task.h"
+#include "api.h"
+#include "time.h"
 #include "device.h"
 
 
@@ -13,15 +14,9 @@ void task(void *args){
 
 
 void test1(){
-	time_delay(5000000);
-
-
-	interrupts_disable();
-	task_create(task, "T 0", 0, 1024, 0);
-	task_create(task, "T  1", 0, 1024, 0);
-	task_create(task, "T   2", 0, 1024, 0);
-	task_create(task, "T    3", 0, 1024, 0);
-	task_create(task, "T     4", 0, 1024, 0);
-	interrupts_enable();
-
+	os_task_create(task, "T 0", 0, 1024, 0);
+	os_task_create(task, "T  1", 0, 1024, 0);
+	os_task_create(task, "T   2", 0, 1024, 0);
+	os_task_create(task, "T    3", 0, 1024, 0);
+	os_task_create(task, "T     4", 0, 1024, 0);
 }

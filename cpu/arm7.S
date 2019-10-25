@@ -131,6 +131,30 @@ interrupts_disable:
 
 
 // ############################
+// system entry
+// ############################
+
+.global sys_entry
+sys_entry:
+	mrs r0, cpsr
+	push {r1}
+	orr r1, r0, #0x80
+	msr cpsr_c, r1
+	pop {r1}
+	bx lr
+
+
+// ############################
+// system exit
+// ############################
+
+.global sys_exit
+sys_exit:
+	msr cpsr_c, r0
+	bx lr
+
+
+// ############################
 // enable L2 cache
 // ############################
 
