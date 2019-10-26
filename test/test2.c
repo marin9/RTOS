@@ -23,9 +23,9 @@ static void task(void *args){
 
 
 void test2(){
-	os_task_create(task, "T 0", 0, 1024, 0);
-	os_task_create(task, "T  1", 0, 1024, 0);
-	os_task_create(task, "T   2", 0, 1024, 0);
-	os_task_create(task, "T    3", 0, 1024, 0);
-	os_task_create(task, "T     4", 0, 1024, 0);
+	os_task_create(task, "T 0", 1, 1024, 0);
+	os_task_create(task, "T  1", 1, 1024, 0);
+	os_task_create(task, "T   2", 1, 1024, 0);
+	os_task_create(task, "T    3", 2, 1024, 0);
+	os_task_create(task, "T     4", 2, 1024, 0);
 }
