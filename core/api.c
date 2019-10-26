@@ -43,3 +43,6 @@ int os_task_getid(){
 	return task_getid();
 }
 
+void os_task_exit(){
+	task_exit();
+}

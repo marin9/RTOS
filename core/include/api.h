@@ -9,3 +9,4 @@ int os_task_getname(uint id, char *name);
 int os_task_getstat(uint id);
 int os_task_getid();
 void os_task_yield();
+void os_task_exit();

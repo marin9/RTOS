@@ -34,4 +34,4 @@ int task_getstat(uint id);
 int task_term(uint id);
 int task_getid();
 void task_yield();
-
+void task_exit();

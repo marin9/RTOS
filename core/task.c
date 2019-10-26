@@ -219,3 +219,7 @@ void task_yield(){
 	active_task=new->id;
 	context_switch(old, new);
 }
+
+void task_exit(){
+	task_reap();
+}
