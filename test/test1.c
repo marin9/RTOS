@@ -2,6 +2,8 @@
 #include "time.h"
 #include "device.h"
 
+//	TEST:
+//	task_create
 
 static void task(void *args){
 	char *name=(char*)args;

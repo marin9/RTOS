@@ -184,7 +184,7 @@ int task_term(uint id){
 		return -ERR_NOEXIST;
 	}
 
-	if(task[id].status==TASK_READY){
+	if(task[id].status!=TASK_DORMANT){
 		task[id].status=TASK_DORMANT;
 		task_remove(&queue_ready[task[id].prio], &task[id]);
 		task_yield();
@@ -207,7 +207,7 @@ void task_yield(){
 	}
 
 	old=&task[active_task];
-	if(old->status!=TASK_DORMANT)
+	if(old->status==TASK_READY)
 		task_enqueue(&queue_ready[old->prio], old);
 
 	for(i=PRIO_COUNT-1;i>=0;--i){
@@ -222,4 +222,67 @@ void task_yield(){
 
 void task_exit(){
 	task_reap();
+}
+
+int task_suspend(uint id){
+	if(id>TASK_COUNT){
+		return -ERR_NOEXIST;
+	}
+
+	if(id==active_task){
+		task[id].status=TASK_SUSPEND;
+		task_yield();
+		return 0;
+	}
+
+	if(task[id].status==TASK_READY){
+		task[id].status=TASK_SUSPEND;
+		task_remove(&queue_ready[task[id].prio], &task[id]);
+		task_yield();
+		return 0;
+	}else{
+		return -ERR_ILSTAT;
+	}
+}
+
+int task_resume(uint id){
+	if(id>TASK_COUNT){
+		return -ERR_NOEXIST;
+	}
+
+	if(task[id].status!=TASK_SUSPEND){
+		return -ERR_ILSTAT;
+	}
+
+	task[id].status=TASK_READY;
+	task_enqueue(&queue_ready[task[id].prio], &task[id]);
+	task_yield();
+	return 0;
+}
+
+int task_set_prio(uint id, uint p){
+	if(id>TASK_COUNT){
+		return -ERR_NOEXIST;
+	}
+
+	if(task[id].status!=TASK_READY){
+		return -ERR_ILSTAT;
+	}
+
+	if(id!=active_task){
+		task_remove(&queue_ready[task[id].prio], &task[id]);
+		task[id].prio=p;
+		task_enqueue(&queue_ready[p], &task[id]);
+	}else{
+		task[active_task].prio=p;
+		task_yield();
+	}
+	return 0;
+}
+
+int task_get_prio(uint id){
+	if(id>TASK_COUNT){
+		return -ERR_NOEXIST;
+	}
+	return task[id].prio;
 }

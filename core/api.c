@@ -46,3 +46,28 @@ int os_task_getid(){
 void os_task_exit(){
 	task_exit();
 }
+
+int os_task_suspend(uint id){
+	uint sr=sys_entry();
+	task_suspend(id);
+	sys_exit(sr);
+	return sr;
+}
+
+int os_task_resume(uint id){
+	uint sr=sys_entry();
+	task_resume(id);
+	sys_exit(sr);
+	return sr;
+}
+
+int os_task_set_prio(uint id, uint p){
+	uint sr=sys_entry();
+	task_set_prio(id, p);
+	sys_exit(sr);
+	return sr;
+}
+
+int os_task_get_prio(uint id){
+	return task_get_prio(id);
+}
