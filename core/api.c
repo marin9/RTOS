@@ -71,3 +71,9 @@ int os_task_set_prio(uint id, uint p){
 int os_task_get_prio(uint id){
 	return task_get_prio(id);
 }
+
+void os_task_sleep(uint ms){
+	uint sr=sys_entry();
+	task_sleep(ms);
+	sys_exit(sr);
+}

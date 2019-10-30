@@ -14,3 +14,4 @@ int os_task_suspend(uint id);
 int os_task_resume(uint id);
 int os_task_set_prio(uint id, uint p);
 int os_task_get_prio(uint id);
+void os_task_sleep(uint ms);

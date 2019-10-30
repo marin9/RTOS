@@ -6,6 +6,7 @@
 #define TASK_READY		1
 #define TASK_SUSPEND 	2
 
+
 typedef struct task_t{
 	uint *sp;
 	uint id;
@@ -40,3 +41,4 @@ int task_suspend(uint id);
 int task_resume(uint id);
 int task_set_prio(uint id, uint p);
 int task_get_prio(uint id);
+void task_sleep(uint ms);

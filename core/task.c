@@ -1,5 +1,6 @@
 #include "cpu.h"
 #include "task.h"
+#include "time.h"
 #include "param.h"
 #include "types.h"
 #include "errno.h"
@@ -285,4 +286,12 @@ int task_get_prio(uint id){
 		return -ERR_NOEXIST;
 	}
 	return task[id].prio;
+}
+
+void task_sleep(uint ms){
+	uint tv=time_get_ticks()+ms;
+
+	//while(time_get_ticks()<tv){
+		task_yield();
+	//}
 }

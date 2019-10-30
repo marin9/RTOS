@@ -1,5 +1,6 @@
 #include "rpi.h"
 #include "task.h"
+#include "time.h"
 #include "param.h"
 #include "types.h"
 #include "device.h"
