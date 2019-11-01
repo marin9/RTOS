@@ -1,3 +1,4 @@
+#include "sem.h"
 #include "cpu.h"
 #include "task.h"
 
@@ -87,6 +88,38 @@ int os_task_signal(uint id){
 	int ret;
 	uint sr=sys_entry();
 	ret=task_signal(id);
+	sys_exit(sr);
+	return ret;
+}
+
+int os_sem_init(uint id, uint v){
+	int ret;
+	uint sr=sys_entry();
+	ret=sem_init(id, v);
+	sys_exit(sr);
+	return ret;
+}
+
+int os_sem_take(uint id){
+	int ret;
+	uint sr=sys_entry();
+	ret=sem_take(id);
+	sys_exit(sr);
+	return ret;
+}
+
+int os_sem_give(uint id){
+	int ret;
+	uint sr=sys_entry();
+	ret=sem_give(id);
+	sys_exit(sr);
+	return ret;
+}
+
+int os_sem_try(uint id){
+	int ret;
+	uint sr=sys_entry();
+	ret=sem_try(id);
 	sys_exit(sr);
 	return ret;
 }

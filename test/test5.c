@@ -39,6 +39,6 @@ static void task3(void *args){
 void test5(){
 	time_delay(5000000);
 	os_task_create(task1, "T 0", 1, 1024, 0);
-	os_task_create(task2, "T  1", 1, 1024, 0);
-	os_task_create(task3, "T   2", 1, 1024, 0);
+	os_task_create(task2, "T  1", 2, 1024, 0);
+	os_task_create(task3, "T   2", 3, 1024, 0);
 }

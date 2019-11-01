@@ -73,6 +73,10 @@ void task_remove(task_queue_t *q, task_t *t){
 	t->prev=0;
 }
 
+int task_queue_empty(task_queue_t *q){
+	return q->first == 0;
+}
+
 
 
 static void task_idle(){
@@ -209,7 +213,7 @@ void task_yield(){
 		return;
 	}
 
-	task_wakeup(&sleep_queue);
+	task_wakeup_all(&sleep_queue);
 
 	old=&task[active_task];
 	if(old->status==TASK_READY)
@@ -292,7 +296,7 @@ int task_get_prio(uint id){
 	return task[id].prio;
 }
 
-void task_wait(task_queue_t *q){
+void task_wait(task_queue_t *q, int stat){
 	int i;
 	task_t *old;
 	task_t *new;
@@ -303,6 +307,7 @@ void task_wait(task_queue_t *q){
 
 	old=&task[active_task];
 	task_enqueue(q, old);
+	old->status=stat;
 
 	for(i=PRIO_COUNT-1;i>=0;--i){
 		new=task_dequeue(&queue_ready[i]);
@@ -323,6 +328,7 @@ int task_wakeup(task_queue_t *q){
 	}
 
 	task_enqueue(&queue_ready[t->prio], &task[t->id]);
+	t->status=TASK_READY;
 	return 0;
 }
 
@@ -334,14 +340,11 @@ int task_wakeup_all(task_queue_t *q){
 int task_sleep(uint ms){
 	uint rest;
 	uint tv=time_get_ticks()+ms;
-
+	//TODO fix
 	task[active_task].status=TASK_SLEEP;
 
 	while(tv > time_get_ticks()){
-		if(task[active_task].status != TASK_SLEEP){
-			break;
-		}
-		task_wait(&sleep_queue);
+		task_wait(&sleep_queue, TASK_SLEEP);
 	}
 
 	task[active_task].status=TASK_READY;
@@ -358,7 +361,7 @@ int task_signal(uint id){
 	if(task[id].status != TASK_SLEEP){
 		return -ERR_ILSTAT;
 	}
-
+	//TODO fix
 	task[id].status=TASK_READY;
 	task_yield();
 	return 0;
