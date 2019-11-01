@@ -5,6 +5,7 @@
 #define TASK_DORMANT	0
 #define TASK_READY		1
 #define TASK_SUSPEND 	2
+#define TASK_SLEEP 		3
 
 
 typedef struct task_t{
@@ -41,4 +42,8 @@ int task_suspend(uint id);
 int task_resume(uint id);
 int task_set_prio(uint id, uint p);
 int task_get_prio(uint id);
-void task_sleep(uint ms);
+void task_wait(task_queue_t *q);
+int task_wakeup(task_queue_t *q);
+int task_wakeup_all(task_queue_t *q);
+int task_sleep(uint ms);
+int task_signal(uint id);

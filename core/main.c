@@ -14,6 +14,7 @@ void test2();
 void test3();
 void test4();
 void test5();
+void test6();
 
 
 void main(){
@@ -24,6 +25,6 @@ void main(){
 	task_init();
 	time_init();
 
-	task_create(test5, 0, 0, 1024, "main");
+	task_create(test6, 0, 0, 1024, "main");
 	task_sched_start();
 }

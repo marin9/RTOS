@@ -14,6 +14,7 @@ static uint sched_running;
 static uint active_task;
 static task_t task[TASK_COUNT];
 static task_queue_t queue_ready[PRIO_COUNT];
+static task_queue_t sleep_queue;
 
 
 
@@ -84,13 +85,14 @@ static void task_reap(){
 	task_yield();
 }
 
-
 void task_init(){
 	int i;
 
 	for(i=0;i<PRIO_COUNT;++i){
 		task_queue_init(&queue_ready[i]);
 	}
+
+	task_queue_init(&sleep_queue);
 
 	for(i=0;i<TASK_COUNT;++i){
 		task[i].status=0;
@@ -207,6 +209,8 @@ void task_yield(){
 		return;
 	}
 
+	task_wakeup(&sleep_queue);
+
 	old=&task[active_task];
 	if(old->status==TASK_READY)
 		task_enqueue(&queue_ready[old->prio], old);
@@ -288,10 +292,74 @@ int task_get_prio(uint id){
 	return task[id].prio;
 }
 
-void task_sleep(uint ms){
+void task_wait(task_queue_t *q){
+	int i;
+	task_t *old;
+	task_t *new;
+
+	if(!sched_running){
+		return;
+	}
+
+	old=&task[active_task];
+	task_enqueue(q, old);
+
+	for(i=PRIO_COUNT-1;i>=0;--i){
+		new=task_dequeue(&queue_ready[i]);
+		if(new){
+			break;
+		}
+	}
+	active_task=new->id;
+	context_switch(old, new);
+}
+
+int task_wakeup(task_queue_t *q){
+	task_t *t;
+
+	t=task_dequeue(q);
+	if(!t){
+		return -ERR_NORES;
+	}
+
+	task_enqueue(&queue_ready[t->prio], &task[t->id]);
+	return 0;
+}
+
+int task_wakeup_all(task_queue_t *q){
+	while(!task_wakeup(q));
+	return 0;
+}
+
+int task_sleep(uint ms){
+	uint rest;
 	uint tv=time_get_ticks()+ms;
 
-	//while(time_get_ticks()<tv){
-		task_yield();
-	//}
+	task[active_task].status=TASK_SLEEP;
+
+	while(tv > time_get_ticks()){
+		if(task[active_task].status != TASK_SLEEP){
+			break;
+		}
+		task_wait(&sleep_queue);
+	}
+
+	task[active_task].status=TASK_READY;
+
+	rest=tv-time_get_ticks();
+	if(rest <= 0){
+		return 0;
+	}else{
+		return rest;
+	}
+}
+
+int task_signal(uint id){
+	if(task[id].status != TASK_SLEEP){
+		return -ERR_ILSTAT;
+	}
+
+	task[id].status=TASK_READY;
+	task_yield();
+	return 0;
 }

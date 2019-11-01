@@ -48,32 +48,45 @@ void os_task_exit(){
 }
 
 int os_task_suspend(uint id){
+	int ret;
 	uint sr=sys_entry();
-	task_suspend(id);
+	ret=task_suspend(id);
 	sys_exit(sr);
-	return sr;
+	return ret;
 }
 
 int os_task_resume(uint id){
+	int ret;
 	uint sr=sys_entry();
-	task_resume(id);
+	ret=task_resume(id);
 	sys_exit(sr);
-	return sr;
+	return ret;
 }
 
 int os_task_set_prio(uint id, uint p){
+	int ret;
 	uint sr=sys_entry();
-	task_set_prio(id, p);
+	ret=task_set_prio(id, p);
 	sys_exit(sr);
-	return sr;
+	return ret;
 }
 
 int os_task_get_prio(uint id){
 	return task_get_prio(id);
 }
 
-void os_task_sleep(uint ms){
+int os_task_sleep(uint ms){
+	int ret;
 	uint sr=sys_entry();
-	task_sleep(ms);
+	ret=task_sleep(ms);
 	sys_exit(sr);
+	return ret;
+}
+
+int os_task_signal(uint id){
+	int ret;
+	uint sr=sys_entry();
+	ret=task_signal(id);
+	sys_exit(sr);
+	return ret;
 }
