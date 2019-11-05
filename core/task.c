@@ -38,6 +38,32 @@ void task_enqueue(task_queue_t *q, task_t *t){
 	}
 }
 
+void task_enqueue_sort(task_queue_t *q, task_t *t){
+	task_t *tmp=task_peek(q);
+
+	if(!tmp){
+		task_enqueue(q, t);
+		return;
+	}
+
+	while(t->sleep > tmp->sleep){
+		t->sleep -= tmp->sleep;
+		tmp=tmp->next;
+	}
+
+	tmp->sleep -= t->sleep;
+
+	t->next=tmp;
+	tmp->prev=t;
+
+	t->prev=tmp->prev;
+	tmp->prev->next=t;
+}
+
+task_t* task_peek(task_queue_t *q){
+	return q->first;
+}
+
 task_t* task_dequeue(task_queue_t *q){
 	task_t *tmp=q->first;
 
@@ -73,8 +99,43 @@ void task_remove(task_queue_t *q, task_t *t){
 	t->prev=0;
 }
 
-int task_queue_empty(task_queue_t *q){
-	return q->first == 0;
+
+uint task_sleep(uint ms){
+	ms=ms;
+
+
+
+
+	//TODO
+}
+
+void task_wait(task_queue_t *q, int stat){
+	int i;
+	task_t *old;
+	task_t *new;
+
+	old=&task[active_task];
+	old->status=stat;
+	task_enqueue(q, old);
+	
+	for(i=PRIO_COUNT-1;i>=0;--i){
+		new=task_dequeue(&queue_ready[i]);
+		if(new)
+			break;
+	}
+	active_task=new->id;
+	context_switch(old, new);
+}
+
+int task_release(task_queue_t *q){
+	task_t *t=task_dequeue(q);
+	if(!t){
+		return -ERR_NORES;
+	}
+
+	task_enqueue(&queue_ready[t->prio], t);
+	t->status=TASK_READY;
+	return 0;
 }
 
 
@@ -295,7 +356,7 @@ int task_get_prio(uint id){
 	}
 	return task[id].prio;
 }
-
+/*
 void task_wait(task_queue_t *q, int stat){
 	int i;
 	task_t *old;
@@ -317,7 +378,7 @@ void task_wait(task_queue_t *q, int stat){
 	}
 	active_task=new->id;
 	context_switch(old, new);
-}
+}*/
 
 int task_wakeup(task_queue_t *q){
 	task_t *t;
@@ -336,7 +397,7 @@ int task_wakeup_all(task_queue_t *q){
 	while(!task_wakeup(q));
 	return 0;
 }
-
+/*
 int task_sleep(uint ms){
 	uint rest;
 	uint tv=time_get_ticks()+ms;
@@ -355,7 +416,7 @@ int task_sleep(uint ms){
 	}else{
 		return rest;
 	}
-}
+}*/
 
 int task_signal(uint id){
 	if(task[id].status != TASK_SLEEP){

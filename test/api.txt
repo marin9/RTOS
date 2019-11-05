@@ -40,6 +40,10 @@ MBOX:
 	int mbox_send(int id, msg_t *m, int prio);
 	int mbox_recv(int id, msg_t *m);
 
+TIMERS:
+	int timer_init();
+	
+
 RINGBUF:
 	void ringbuf_init(ringbuf_t *rb, char *buf, int size);
 	int ringbuf_send(ringbuf_t *rb, char *data, int size);
