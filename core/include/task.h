@@ -27,14 +27,16 @@ typedef struct{
 
 
 void task_queue_init(task_queue_t *q);
-void task_enqueue_sort(task_queue_t *q, task_t *t);
 void task_enqueue(task_queue_t *q, task_t *t);
 void task_remove(task_queue_t *q, task_t *t);
-task_t* task_peek(task_queue_t *q);
 task_t* task_dequeue(task_queue_t *q);
+task_t* task_peek(task_queue_t *q);
+void queue_enqueue_sleep(task_queue_t *q, task_t *c, uint ticks);
+void queue_dequeue_sleep(task_queue_t *q, task_t *t);
 
-uint task_sleep(uint ms);
-void task_wait(task_queue_t *q, int stat);
+void task_sleep(task_t *t, uint ticks);
+int task_wakeup(task_t *t);
+void task_block(task_queue_t *q, uint stat);
 int task_release(task_queue_t *q);
 
 void task_init();
@@ -51,7 +53,7 @@ int task_resume(uint id);
 int task_set_prio(uint id, uint p);
 int task_get_prio(uint id);
 //void task_wait(task_queue_t *q, int stat);
-int task_wakeup(task_queue_t *q);
+//int task_wakeup(task_queue_t *q);
 int task_wakeup_all(task_queue_t *q);
 //int task_sleep(uint ms);
 int task_signal(uint id);
