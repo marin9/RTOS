@@ -41,8 +41,11 @@ MBOX:
 	int mbox_recv(int id, msg_t *m);
 
 TIMERS:
-	int timer_init();
-	
+	int timer_init(func fn, char *name);
+	int timer_start(int id, int begin, int period);
+	int timer_stop(int id);
+	int timer_delete(int id);
+	int timer_getid(char *name);
 
 RINGBUF:
 	void ringbuf_init(ringbuf_t *rb, char *buf, int size);

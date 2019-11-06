@@ -11,8 +11,8 @@ static uint ticks;
 
 
 void time_tick(){
-	timer_set(TICK_TIME);
 	++ticks;
+	timer_set(TICK_TIME);
 	task_yield();
 }
 
