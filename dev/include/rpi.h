@@ -11,7 +11,6 @@
 #define PWM_BASE		(PERIPH_BASE+0x20C000)
 #define MMIO_BASE		(PERIPH_BASE+0x300000)
 
-
 #define SYSTMR1_IRQ	1
 #define SYSTMR3_IRQ 3
 #define GPIO_IRQ_0  49

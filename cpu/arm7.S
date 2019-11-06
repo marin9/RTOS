@@ -119,7 +119,7 @@ interrupts_enable:
 
 
 // ############################
-// enable interrupts
+// disable interrupts
 // ############################
 
 .global interrupts_disable

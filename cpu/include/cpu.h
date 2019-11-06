@@ -34,7 +34,7 @@ typedef struct{
 void halt();
 uint sys_entry();
 void sys_exit(uint sr);
-uint interrupts_enable();
-uint interrupts_disable();
+void interrupts_enable();
+void interrupts_disable();
 void context_switch(void *c1, void *c2);
 void context_create(void *ctx, void *fn, void *args, void *reap);

@@ -27,6 +27,6 @@ uint timer_get(){
 }
 
 void timer_wait(uint us){
-	uint tv=timer_get()+us;
-	while(tv>timer_get());
+	uint t1=*SYS_TIMER_CLO+us;
+	while(t1 > *SYS_TIMER_CLO);
 }
