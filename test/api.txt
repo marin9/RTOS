@@ -55,15 +55,15 @@ RINGBUF:
 	int ringbuf_empty(ringbuf_t *rb);
 
 LIST:
-	void list_init(list_t *l);
-	void list_pushF(list_t *l, node_t *n);
-	void list_pushL(list_t *l, node_t *n);
-	node_t *n list_popF(list_t *l);
-	node_t *n list_popL(list_t *l);
-	node_t *n list_peekF(list_t *l);
-	node_t *n list_peekL(list_t *l);
-	void list_remove(list_t *l, node_t *n);
-	int list_count(list_t *l);
++	void list_init(list_t *l);
++	void list_pushF(list_t *l, node_t *n);
++	void list_pushL(list_t *l, node_t *n);
++	node_t *n list_popF(list_t *l);
++	node_t *n list_popL(list_t *l);
++	node_t *n list_peekF(list_t *l);
++	node_t *n list_peekL(list_t *l);
++	void list_remove(list_t *l, node_t *n);
++	int list_count(list_t *l);
 
 TIME:
 +	time_getticks();

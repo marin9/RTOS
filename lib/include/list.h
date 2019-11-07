@@ -22,4 +22,5 @@ void list_add_last(list_t *l, node_t *n);
 node_t* list_remove(list_t *l, node_t *n);
 node_t* list_remove_first(list_t *l);
 node_t* list_remove_last(list_t *l);
-
+node_t* list_peek_first(list_t *q);
+node_t* list_peek_last(list_t *q);

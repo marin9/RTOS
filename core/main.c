@@ -17,6 +17,13 @@ void test5();
 void test6();
 void test7();
 
+// TODO
+// test/
+// main.c 
+// sem.c sem.h
+// api.c api.h
+// task.c task.h
+
 
 void main(){
 	uart_init();

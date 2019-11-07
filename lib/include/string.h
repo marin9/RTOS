@@ -1,8 +1,6 @@
 #pragma once
 #include "types.h"
 
-#define NULL	0
-
 void *memset(void *s, int c, uint n);
 void *memcpy(void *dest, void *src, uint n);
 uint strlen(char *s);

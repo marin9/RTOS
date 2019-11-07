@@ -65,4 +65,10 @@ node_t* list_remove_last(list_t *q){
 	return list_remove(q, q->last);
 }
 
+node_t* list_peek_first(list_t *q){
+	return q->first;
+}
 
+node_t* list_peek_last(list_t *q){
+	return q->last;
+}
