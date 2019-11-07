@@ -1,6 +1,24 @@
 #pragma once
-#include "task.h"
 #include "types.h"
+
+#define TASK_DORMANT	0
+#define TASK_READY		1
+#define TASK_SUSPEND 	2
+#define TASK_SLEEP 		3
+#define TASK_BLOCKSEM	4
+
+
+typedef struct task_t{
+	uint *sp;
+	uint id;
+	uint prio;
+	uint sleep;
+	uint status;
+	int retval;
+	char name[NAME_LEN];
+	struct task_t *next;
+	struct task_t *prev;
+} task_t;
 
 typedef struct{
 	task_t *first;
