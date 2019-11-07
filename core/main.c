@@ -22,7 +22,6 @@ void test7();
 // main.c 
 // sem.c sem.h
 // api.c api.h
-// task.c task.h
 
 
 void main(){
@@ -34,5 +33,5 @@ void main(){
 	time_init();
 
 	task_create(test6, 0, 0, 1024, "main");
-	task_sched_start();
+	task_start();
 }

@@ -9,8 +9,11 @@
 #define TASK_BLOCKMUX	5
 #define TASK_BLOCKCOND	6
 #define TASK_BLOCKFLAG	7
-#define TASK_BLOCKRECV	8	
-#define TASK_BLOCKJOIN	9
+#define TASK_BLOCKSEND	8
+#define TASK_BLOCKRECV	9
+#define TASK_BLOCKRBS	10
+#define TASK_BLOCKRBR	11	
+#define TASK_BLOCKJOIN	12
 
 
 typedef struct task_t{
@@ -22,8 +25,8 @@ typedef struct task_t{
 	char name[NAME_LEN];
 	struct task_t *next;
 	struct task_t *prev;
-	task_t *join_q;
-	int block_id;
+	struct task_t *join_q;
+	void *block_q;
 	int retval;
 } task_t;
 
