@@ -3,32 +3,44 @@
 #include "device.h"
 
 //	TEST:
-//	task_term
-//	task_exit
+//	task_sleep
 
-static void task(void *args){
-	int i=0;
-	char *name=(char*)args;
-
+static void task0(void *args){
 	while(1){
-		uart_print(name);
-		uart_print("\r\n");
-		time_delay(1000000);
-
-		if(i==10 && os_task_getid()==6){
-			os_task_term(5);
-			os_task_term(4);
-			os_task_exit(0);
-		}
-		++i;
+		uart_print((char*)args);
+		os_task_sleep(1000);
 	}
 }
 
+static void task1(void *args){
+	while(1){
+		uart_print((char*)args);
+		os_task_sleep(2000);
+	}
+}
+
+static void task2(void *args){
+	while(1){
+		uart_print((char*)args);
+		os_task_sleep(3000);
+	}
+}
+
+static void taskX(void *args){
+	int i;
+	while(1){
+		os_task_sleep(10*1000);
+
+		for(i=0;i<5;++i){
+			uart_print((char*)args);
+			time_delay(1000000);
+		}
+	}
+}
 
 void test2(){
-	os_task_create(task, "T 0", 1, 1024, 0);
-	os_task_create(task, "T  1", 1, 1024, 0);
-	os_task_create(task, "T   2", 1, 1024, 0);
-	os_task_create(task, "T    3", 2, 1024, 0);
-	os_task_create(task, "T     4", 2, 1024, 0);
+	os_task_create(task0, "T 0\r\n", 1, 1024, 0);
+	os_task_create(task1, "T  1\r\n", 1, 1024, 0);
+	os_task_create(task2, "T   2\r\n", 1, 1024, 0);
+	os_task_create(taskX, "T    3\r\n", 2, 1024, 0);
 }

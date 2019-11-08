@@ -21,7 +21,6 @@ void test7();
 // test/
 // main.c 
 // sem.c sem.h
-// api.c api.h
 
 
 void main(){

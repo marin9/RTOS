@@ -341,7 +341,7 @@ int task_resume(uint id){
 	return 0;
 }
 
-int task_joint(uint id){
+int task_join(uint id){
 	if(id>=TASK_COUNT){
 		return -ERR_NORES;
 	}
@@ -353,4 +353,3 @@ int task_joint(uint id){
 	task_yield();
 	return 0;
 }
-

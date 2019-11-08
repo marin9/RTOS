@@ -24,4 +24,4 @@ int task_get_prio(uint id);
 int task_set_prio(uint p);
 int task_suspend(uint id);
 int task_resume(uint id);
-int task_joint(uint id);
+int task_join(uint id);
