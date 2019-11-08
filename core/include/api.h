@@ -15,4 +15,4 @@ int os_task_get_prio(uint id);
 int os_task_set_prio(uint p);
 int os_task_suspend(uint id);
 int os_task_resume(uint id);
-int os_task_joint(uint id);
+int os_task_join(uint id, int *ret);

@@ -100,10 +100,10 @@ int os_task_resume(uint id){
 	return ret;
 }
 
-int os_task_joint(uint id){
-	int ret;
+int os_task_join(uint id, int *ret){
+	int r;
 	uint sr=sys_entry();
-	ret=task_join(id);
+	r=task_join(id, ret);
 	sys_exit(sr);
-	return ret;
+	return r;
 }

@@ -341,15 +341,20 @@ int task_resume(uint id){
 	return 0;
 }
 
-int task_join(uint id){
+int task_join(uint id, int *ret){
 	if(id>=TASK_COUNT){
 		return -ERR_NORES;
 	}
 
+	if(task[id].status == TASK_DORMANT){
+		return -ERR_ILGSTAT;
+	}
+
 	task[active_task].join_q=task[id].join_q;
 	task[id].join_q=&task[active_task];
-
 	task[active_task].status=TASK_BLOCKJOIN;
 	task_yield();
+	if(ret)
+		*ret=task[id].retval;
 	return 0;
 }
