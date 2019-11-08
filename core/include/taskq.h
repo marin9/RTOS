@@ -1,4 +1,5 @@
 #pragma once
+#include "param.h"
 #include "types.h"
 
 #define TASK_DORMANT	0

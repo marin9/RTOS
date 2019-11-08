@@ -1,7 +1,7 @@
 #include "types.h"
 #include "errno.h"
 #include "task.h"
-
+/*
 
 typedef struct{
 	uint value;
@@ -61,3 +61,4 @@ int sem_try(uint id){
 		return 0;
 	}
 }
+*/

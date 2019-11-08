@@ -18,7 +18,7 @@ static void task(void *args){
 		if(i==10 && os_task_getid()==6){
 			os_task_term(5);
 			os_task_term(4);
-			os_task_exit();
+			os_task_exit(0);
 		}
 		++i;
 	}

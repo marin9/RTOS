@@ -19,7 +19,7 @@ int os_task_term(uint id){
 	uint sr;
 
 	sr=sys_entry();
-	ret=task_term(id);
+	ret=task_kill(id);
 
 	sys_exit(sr);
 	return ret;
@@ -33,19 +33,19 @@ void os_task_yield(){
 }
 
 int os_task_getname(uint id, char *name){
-	return task_getname(id, name);
+	return task_get_name(id, name);
 }
 
 int os_task_getstat(uint id){
-	return task_getstat(id);
+	return task_get_status(id);
 }
 
 int os_task_getid(){
-	return task_getid();
+	return task_get_id();
 }
 
-void os_task_exit(){
-	task_exit();
+void os_task_exit(int ret){
+	task_exit(ret);
 }
 
 int os_task_suspend(uint id){
@@ -64,10 +64,10 @@ int os_task_resume(uint id){
 	return ret;
 }
 
-int os_task_set_prio(uint id, uint p){
+int os_task_set_prio(uint p){
 	int ret;
 	uint sr=sys_entry();
-	ret=task_set_prio(id, p);
+	ret=task_set_prio(p);
 	sys_exit(sr);
 	return ret;
 }
@@ -76,22 +76,20 @@ int os_task_get_prio(uint id){
 	return task_get_prio(id);
 }
 
-int os_task_sleep(uint ms){
-	int ret;
+void os_task_sleep(uint ms){
 	uint sr=sys_entry();
-	ret=task_sleep(ms);
+	task_sleep(ms);
 	sys_exit(sr);
-	return ret;
 }
 
 int os_task_signal(uint id){
 	int ret;
 	uint sr=sys_entry();
-	ret=task_signal(id);
+	ret=task_wakeup(id);
 	sys_exit(sr);
 	return ret;
 }
-
+/*
 int os_sem_init(uint id, uint v){
 	int ret;
 	uint sr=sys_entry();
@@ -123,3 +121,4 @@ int os_sem_try(uint id){
 	sys_exit(sr);
 	return ret;
 }
+*/
