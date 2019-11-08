@@ -1,17 +1,25 @@
+block,
+no-block,
+timeout
+
 TASK:
-+	int task_create(func fn, void *args, uint prio, uint stack, char *name);
-+	int task_terminate(uint id);
-+	int task_self_terminate();
-+	int task_suspend(int id);
-+	int task_resume(int id);
-+	int task_set_prio(int id, int p);
-+	int task_get_prio(int id);
-+	int task_sleep(int ms);
-+	int task_wakeup(int id);
--	int task_join(int id);
-+	int task_get_status(int id);
-+	char* task_getname(int id);
-+	int task_getid();	
+	int task_create(func fn, void *args, uint prio, uint stack, char *name);
+	void task_yield();
+	void task_exit(int ret);
+	int task_kill(uint id);
+	void task_sleep(uint ticks);
+	int task_wakeup(uint id);
+	void task_block(task_queue_t *q, uint stat);
+	int task_release(task_queue_t *q);
+	void task_release_all(task_queue_t *q);
+	int task_get_id();
+	int task_get_name(uint id, char *name);
+	int task_get_status(uint id);
+	int task_get_prio(uint id);
+	int task_set_prio(uint p);
+	int task_suspend(uint id);
+	int task_resume(uint id);
+	int task_joint(uint id);	
 
 SEM:
 	int sem_init(sem_t *s, int val);
@@ -54,6 +62,16 @@ RINGBUF:
 	int ringbuf_full(ringbuf_t *rb);
 	int ringbuf_empty(ringbuf_t *rb);
 
+MEM_HEAP:
+	mem_init
+	mem_alloc
+	mem_calloc
+	mem_free
+
+MEM_POOL:
++	mpool_init
++	mpool_alloc
+
 LIST:
 +	void list_init(list_t *l);
 +	void list_pushF(list_t *l, node_t *n);
@@ -66,21 +84,5 @@ LIST:
 +	int list_count(list_t *l);
 
 TIME:
-+	time_getticks();
++	time_get_ticks();
 +	time_delayus(int us);
-
-MEM_POOL:
-+	mpool_init
-+	mpool_alloc
-
-MEM:
-	mem_init
-	mem_alloc
-	mem_calloc
-	mem_free
-
-block,
-no-block,
-timeout
-
-
