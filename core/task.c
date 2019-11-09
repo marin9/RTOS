@@ -235,21 +235,12 @@ int task_wakeup(uint id){
 }
 
 void task_block(task_queue_t *q, uint stat){
-	int i;
 	task_t *old;
-	task_t *new;
 
 	old=&task[active_task];
 	old->status=stat;
 	task_enqueue(q, old);
-	
-	for(i=PRIO_COUNT-1;i>=0;--i){
-		new=task_dequeue(&queue_ready[i]);
-		if(new)
-			break;
-	}
-	active_task=new->id;
-	context_switch(old, new);
+	task_yield();
 }
 
 int task_release(task_queue_t *q){

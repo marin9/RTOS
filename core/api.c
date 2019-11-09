@@ -1,6 +1,7 @@
 #include "sem.h"
 #include "cpu.h"
 #include "task.h"
+#include "mutex.h"
 
 
 int os_task_create(func fn, void *args, uint prio, uint stack, char *name){
@@ -104,6 +105,72 @@ int os_task_join(uint id, int *ret){
 	int r;
 	uint sr=sys_entry();
 	r=task_join(id, ret);
+	sys_exit(sr);
+	return r;
+}
+
+
+int os_sem_init(uint id, uint v){
+	int r;
+	uint sr=sys_entry();
+	r=sem_init(id, v);
+	sys_exit(sr);
+	return r;
+}
+
+int os_sem_take(uint id){
+	int r;
+	uint sr=sys_entry();
+	r=sem_take(id);
+	sys_exit(sr);
+	return r;
+}
+
+int os_sem_give(uint id){
+	int r;
+	uint sr=sys_entry();
+	r=sem_give(id);
+	sys_exit(sr);
+	return r;
+}
+
+int os_sem_try(uint id){
+	int r;
+	uint sr=sys_entry();
+	r=sem_try(id);
+	sys_exit(sr);
+	return r;
+}
+
+
+int os_mux_init(uint id){
+	int r;
+	uint sr=sys_entry();
+	r=mux_init(id);
+	sys_exit(sr);
+	return r;
+}
+
+int os_mux_lock(uint id){
+	int r;
+	uint sr=sys_entry();
+	r=mux_lock(id);
+	sys_exit(sr);
+	return r;
+}
+
+int os_mux_unlock(uint id){
+	int r;
+	uint sr=sys_entry();
+	r=mux_unlock(id);
+	sys_exit(sr);
+	return r;
+}
+
+int os_mux_trylock(uint id){
+	int r;
+	uint sr=sys_entry();
+	r=mux_trylock(id);
 	sys_exit(sr);
 	return r;
 }

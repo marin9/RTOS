@@ -16,11 +16,9 @@ void test4();
 void test5();
 void test6();
 void test7();
-
-// TODO
-// test/
-// main.c 
-// sem.c sem.h
+void test8();
+void test9();
+void test10();
 
 
 void main(){
@@ -31,6 +29,6 @@ void main(){
 	task_init();
 	time_init();
 
-	task_create(test6, 0, 0, 1024, "main");
+	task_create(test10, 0, 0, 1024, "main");
 	task_start();
 }

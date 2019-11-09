@@ -16,3 +16,13 @@ int os_task_set_prio(uint p);
 int os_task_suspend(uint id);
 int os_task_resume(uint id);
 int os_task_join(uint id, int *ret);
+
+int os_sem_init(uint id, uint v);
+int os_sem_take(uint id);
+int os_sem_give(uint id);
+int os_sem_try(uint id);
+
+int os_mux_init(uint id);
+int os_mux_lock(uint id);
+int os_mux_unlock(uint id);
+int os_mux_trylock(uint id);

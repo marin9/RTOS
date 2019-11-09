@@ -8,10 +8,10 @@ TASK:
 +	void task_exit(int ret);
 +	int task_kill(uint id);
 +	void task_sleep(uint ticks);
-	int task_wakeup(uint id);
-	void task_block(task_queue_t *q, uint stat);
-	int task_release(task_queue_t *q);
-	void task_release_all(task_queue_t *q);
++	int task_wakeup(uint id);
++	void task_block(task_queue_t *q, uint stat);
++	int task_release(task_queue_t *q);
++	void task_release_all(task_queue_t *q);
 +	int task_get_id();
 +	int task_get_name(uint id, char *name);
 +	int task_get_status(uint id);
@@ -22,14 +22,16 @@ TASK:
 +	int task_joint(uint id);	
 
 SEM:
-	int sem_init(sem_t *s, int val);
-	int sem_take(sem_t *s);
-	int sem_give(sem_t *s);
++	int sem_init(uint id, uint val);
++	int sem_take(uint id);
++	int sem_give(uint id);
++	int sem_try(uint id);
 
 MUTEX:
-	int mutex_init(mutex_t *m);
-	int mutex_lock(mutex_t *m);
-	int mutex_unlock(mutex_t *m);
++	int mux_init(uint id);
++	int mux_lock(uint id);
++	int mux_unlock(uint id);
++	int mux_trylock(uint id);
 
 COND:
 	int cond_init(cond_t *c);
