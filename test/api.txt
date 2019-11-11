@@ -1,6 +1,4 @@
-block,
-no-block,
-timeout
+block, no-block, timeout
 
 TASK:
 +	int task_create(func fn, void *args, uint prio, uint stack, char *name);
@@ -27,13 +25,11 @@ SEM:
 +	int sem_give(uint id);
 +	int sem_try(uint id);
 
-MUTEX:
+MONITOR:
 +	int mux_init(uint id);
 +	int mux_lock(uint id);
 +	int mux_unlock(uint id);
 +	int mux_trylock(uint id);
-
-COND:
 	int cond_init(cond_t *c);
 	int cond_wait(cond_t *c, mutex_t *m);
 	int cond_signal(cond_t *c, int broadcast);
@@ -41,7 +37,7 @@ COND:
 FLAGS:
 	int flags_init(int id);
 	int flags_get(int id);
-	int flags_clr(int id); // ?
+	int flags_clr(int id, int f);
 	int flags_set(int id, int f);
 	int flags_wait(int id, int f, int type);
 
@@ -88,3 +84,4 @@ LIST:
 TIME:
 +	time_get_ticks();
 +	time_delayus(int us);
+
