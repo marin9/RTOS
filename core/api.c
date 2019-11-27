@@ -1,6 +1,7 @@
 #include "sem.h"
 #include "cpu.h"
 #include "task.h"
+#include "mbox.h"
 #include "mutex.h"
 #include "event.h"
 
@@ -204,6 +205,46 @@ int os_event_wait_any(uint id, uint f){
 	int r;
 	uint sr=sys_entry();
 	r=event_wait_any(id, f);
+	sys_exit(sr);
+	return r;
+}
+
+int os_mbox_init(uint id){
+	int r;
+	uint sr=sys_entry();
+	r=mbox_init(id);
+	sys_exit(sr);
+	return r;
+}
+
+int os_mbox_send(uint id, void *msg){
+	int r;
+	uint sr=sys_entry();
+	r=mbox_send(id, msg);
+	sys_exit(sr);
+	return r;
+}
+
+int os_mbox_recv(uint id, void *msg){
+	int r;
+	uint sr=sys_entry();
+	r=mbox_recv(id, msg);
+	sys_exit(sr);
+	return r;
+}
+
+int os_mbox_try_send(uint id, void *msg){
+	int r;
+	uint sr=sys_entry();
+	r=mbox_try_send(id, msg);
+	sys_exit(sr);
+	return r;
+}
+
+int os_mbox_try_recv(uint id, void *msg){
+	int r;
+	uint sr=sys_entry();
+	r=mbox_try_recv(id, msg);
 	sys_exit(sr);
 	return r;
 }

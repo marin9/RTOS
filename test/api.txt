@@ -1,5 +1,3 @@
-block, no-block, timeout
-
 TASK:
 +	int task_create(func fn, void *args, uint prio, uint stack, char *name);
 +	void task_yield();
@@ -32,7 +30,8 @@ MONITOR:
 +	int mux_trylock(uint id);
 	int cond_init(cond_t *c);
 	int cond_wait(cond_t *c, mutex_t *m);
-	int cond_signal(cond_t *c, int broadcast);
+	int cond_signal(cond_t *c);
+	int cond_broadcast(cond_t *c);
 
 FLAGS:
 +	int event_init(uint id);
@@ -41,9 +40,11 @@ FLAGS:
 +	int event_wait_any(uint id, uint f);
 
 MBOX:
-	int mbox_init(int id);
-	int mbox_send(int id, msg_t *m, int prio);
-	int mbox_recv(int id, msg_t *m);
++	int mbox_init(uint id);
++	int mbox_send(uint id, void *msg);
++	int mbox_recv(uint id, void *msg);
++	int mbox_try_send(uint id, void *msg);
++	int mbox_try_recv(uint id, void *msg);
 
 TIMERS:
 	int timer_init(func fn, char *name);

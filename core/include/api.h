@@ -31,3 +31,9 @@ int os_event_init(uint id);
 int os_event_set(uint id, uint f);
 int os_event_wait_all(uint id, uint f);
 int os_event_wait_any(uint id, uint f);
+
+int os_mbox_init(uint id);
+int os_mbox_send(uint id, void *msg);
+int os_mbox_recv(uint id, void *msg);
+int os_mbox_try_send(uint id, void *msg);
+int os_mbox_try_recv(uint id, void *msg);
