@@ -178,7 +178,7 @@ int task_kill(uint id){
 	case TASK_BLOCKSEM:
 	case TASK_BLOCKMUX:
 	case TASK_BLOCKCOND:
-	case TASK_BLOCKFLAG:
+	case TASK_BLOCKEVENT:
 	case TASK_BLOCKSEND:
 	case TASK_BLOCKRECV:
 	case TASK_BLOCKRBS:

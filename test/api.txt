@@ -35,11 +35,14 @@ MONITOR:
 	int cond_signal(cond_t *c, int broadcast);
 
 FLAGS:
-	int flags_init(int id);
-	int flags_get(int id);
-	int flags_clr(int id, int f);
-	int flags_set(int id, int f);
-	int flags_wait(int id, int f, int type);
++	int os_event_init(uint id);
++	uint os_event_get(uint id);
++	int os_event_clr(uint id, uint f);
++	int os_event_set(uint id, uint f);
++	int os_event_wait_all(uint id, uint f);
++	int os_event_wait_any(uint id, uint f);
++	int os_event_try_all(uint id, uint f);
++	int os_event_try_any(uint id, uint f);
 
 MBOX:
 	int mbox_init(int id);

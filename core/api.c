@@ -2,6 +2,7 @@
 #include "cpu.h"
 #include "task.h"
 #include "mutex.h"
+#include "event.h"
 
 
 int os_task_create(func fn, void *args, uint prio, uint stack, char *name){
@@ -171,6 +172,70 @@ int os_mux_trylock(uint id){
 	int r;
 	uint sr=sys_entry();
 	r=mux_trylock(id);
+	sys_exit(sr);
+	return r;
+}
+
+int os_event_init(uint id){
+	int r;
+	uint sr=sys_entry();
+	r=event_init(id);
+	sys_exit(sr);
+	return r;
+}
+
+uint os_event_get(uint id){
+	int r;
+	uint sr=sys_entry();
+	r=event_get(id);
+	sys_exit(sr);
+	return r;
+}
+
+int os_event_clr(uint id, uint f){
+	int r;
+	uint sr=sys_entry();
+	r=event_clr(id, f);
+	sys_exit(sr);
+	return r;
+}
+
+int os_event_set(uint id, uint f){
+	int r;
+	uint sr=sys_entry();
+	r=event_set(id, f);
+	sys_exit(sr);
+	return r;
+}
+
+int os_event_wait_all(uint id, uint f){
+	int r;
+	uint sr=sys_entry();
+	r=event_wait_all(id, f);
+	sys_exit(sr);
+	return r;
+}
+
+int os_event_wait_any(uint id, uint f){
+	int r;
+	uint sr=sys_entry();
+	r=event_wait_any(id, f);
+	sys_exit(sr);
+	return r;
+}
+
+int os_event_try_all(uint id, uint f){
+	int r;
+	uint sr=sys_entry();
+	r=event_try_all(id, f);
+	sys_exit(sr);
+	return r;
+}
+
+int os_event_try_any(uint id, uint f){
+	int r;
+	uint sr=sys_entry();
+	r=event_try_any(id, f);
 	sys_exit(sr);
 	return r;
 }

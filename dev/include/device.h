@@ -38,6 +38,8 @@ uint gpio_read(uint pin);
 void gpio_enint(uint pin, void (*h)(), int edge);
 
 void uart_init();
+void uart_putc(char c);
+void uart_getc(char *c);
 void uart_print(char *s);
 int uart_read(int unit, void* buffer, int size);
 int uart_write(int unit, void* buffer, int size);

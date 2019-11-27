@@ -19,6 +19,7 @@ void test7();
 void test8();
 void test9();
 void test10();
+void test11();
 
 
 void main(){
@@ -29,6 +30,6 @@ void main(){
 	task_init();
 	time_init();
 
-	task_create(test10, 0, 0, 1024, "main");
+	task_create(test11, 0, 0, 1024, "main");
 	task_start();
 }

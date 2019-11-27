@@ -9,7 +9,7 @@
 #define TASK_BLOCKSEM	4
 #define TASK_BLOCKMUX	5
 #define TASK_BLOCKCOND	6
-#define TASK_BLOCKFLAG	7
+#define TASK_BLOCKEVENT	7
 #define TASK_BLOCKSEND	8
 #define TASK_BLOCKRECV	9
 #define TASK_BLOCKRBS	10
@@ -23,6 +23,7 @@ typedef struct task_t{
 	uint prio;
 	uint sleep;
 	uint status;
+	uint event_flags;
 	char name[NAME_LEN];
 	struct task_t *next;
 	struct task_t *prev;
