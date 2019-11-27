@@ -349,3 +349,7 @@ int task_join(uint id, int *ret){
 		*ret=task[id].retval;
 	return 0;
 }
+
+task_t* task_get_descriptor(){
+	return &task[active_task];
+}

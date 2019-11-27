@@ -10,6 +10,7 @@ typedef struct{
 static event_t event[EVENT_COUNT];
 
 
+
 int event_init(uint id){
 	if(id>=EVENT_COUNT){
 		return -ERR_NORES;
@@ -18,28 +19,18 @@ int event_init(uint id){
 	return 0;
 }
 
-uint event_get(){
-	if(id>=EVENT_COUNT){
-		return -ERR_NORES;
-	}
-	return task[id].event_flags;
-}
-
-int event_clr(uint id, uint f){
-	if(id>=EVENT_COUNT){
-		return -ERR_NORES;
-	}
-
-	event[id].current_flags &= (~f);
-	return 0;
-}
-
 int event_set(uint id, uint f){
 	if(id>=EVENT_COUNT){
 		return -ERR_NORES;
 	}
 
-	event[id].current_flags |= f;
+	task_t *tmp=task_peek(&event[id].wait_q);
+
+	while(tmp){
+		tmp->event_flags |= f;
+		tmp=tmp->next;
+	}
+
 	task_release_all(&event[id].wait_q);
 	return 0;
 }
@@ -49,10 +40,13 @@ int event_wait_all(uint id, uint f){
 		return -ERR_NORES;
 	}
 
-	uint current=event[id].current_flags;
+	task_t *tmp=task_get_descriptor();
 
-	while((f&current) == f){
+	uint current=tmp->event_flags=0;
+
+	while((f&current) != f){
 		task_block(&event[id].wait_q, TASK_BLOCKEVENT);
+		current=tmp->event_flags;
 	}
 	return 0;
 }
@@ -62,36 +56,13 @@ int event_wait_any(uint id, uint f){
 		return -ERR_NORES;
 	}
 
-	uint current=event[id].current_flags;
+	task_t *tmp=task_get_descriptor();
 
-	while(f&current){
+	uint current=tmp->event_flags=0;
+
+	while(!(f&current)){
 		task_block(&event[id].wait_q, TASK_BLOCKEVENT);
+		current=tmp->event_flags;
 	}
 	return 0;
-}
-
-int event_try_all(uint id, uint f){
-	if(id>=EVENT_COUNT){
-		return -ERR_NORES;
-	}
-
-	uint current=event[id].current_flags;
-
-	if((f&current) == f)
-		return 1;
-	else
-		return 0;
-}
-
-int event_try_any(uint id, uint f){
-	if(id>=EVENT_COUNT){
-		return -ERR_NORES;
-	}
-
-	uint current=event[id].current_flags;
-
-	if(f&current)
-		return 1;
-	else
-		return 0;
 }

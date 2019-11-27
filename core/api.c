@@ -184,22 +184,6 @@ int os_event_init(uint id){
 	return r;
 }
 
-uint os_event_get(uint id){
-	int r;
-	uint sr=sys_entry();
-	r=event_get(id);
-	sys_exit(sr);
-	return r;
-}
-
-int os_event_clr(uint id, uint f){
-	int r;
-	uint sr=sys_entry();
-	r=event_clr(id, f);
-	sys_exit(sr);
-	return r;
-}
-
 int os_event_set(uint id, uint f){
 	int r;
 	uint sr=sys_entry();
@@ -220,22 +204,6 @@ int os_event_wait_any(uint id, uint f){
 	int r;
 	uint sr=sys_entry();
 	r=event_wait_any(id, f);
-	sys_exit(sr);
-	return r;
-}
-
-int os_event_try_all(uint id, uint f){
-	int r;
-	uint sr=sys_entry();
-	r=event_try_all(id, f);
-	sys_exit(sr);
-	return r;
-}
-
-int os_event_try_any(uint id, uint f){
-	int r;
-	uint sr=sys_entry();
-	r=event_try_any(id, f);
 	sys_exit(sr);
 	return r;
 }
