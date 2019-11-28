@@ -11,6 +11,7 @@
 
 void timer_init(){
 	timer_clr();
+	timer3_clr();
 }
 
 void timer_clr(){
@@ -29,4 +30,14 @@ uint timer_get(){
 void timer_wait(uint us){
 	uint t1=*SYS_TIMER_CLO+us;
 	while(t1 > *SYS_TIMER_CLO);
+}
+
+
+void timer3_clr(){
+	*SYS_TIMER_CS=1<<3;
+}
+
+void timer3_set(uint us){
+	timer3_clr();
+	*SYS_TIMER_C3=*SYS_TIMER_CLO+us;
 }

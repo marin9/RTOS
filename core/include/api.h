@@ -42,3 +42,8 @@ int os_mbox_send(uint id, void *msg);
 int os_mbox_recv(uint id, void *msg);
 int os_mbox_try_send(uint id, void *msg);
 int os_mbox_try_recv(uint id, void *msg);
+
+void os_tmr_init(uint id, uint start, uint period, void (*handler)());
+void os_tmr_start(uint id);
+void os_tmr_stop(uint id);
+uint os_tmr_value(uint id);

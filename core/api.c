@@ -5,6 +5,7 @@
 #include "cond.h"
 #include "mutex.h"
 #include "event.h"
+#include "timers.h"
 
 
 int os_task_create(func fn, void *args, uint prio, uint stack, char *name){
@@ -280,4 +281,20 @@ int os_mbox_try_recv(uint id, void *msg){
 	r=mbox_try_recv(id, msg);
 	sys_exit(sr);
 	return r;
+}
+
+void os_tmr_init(uint id, uint start, uint period, void (*handler)()){
+	tmr_init(id, start, period, handler);
+}
+
+void os_tmr_start(uint id){
+	tmr_start(id);
+}
+
+void os_tmr_stop(uint id){
+	tmr_stop(id);
+}
+
+uint os_tmr_value(uint id){
+	return tmr_value(id);
 }

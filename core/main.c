@@ -4,6 +4,7 @@
 #include "time.h"
 #include "types.h"
 #include "mpool.h"
+#include "timers.h"
 #include "string.h"
 #include "device.h"
 #include "interrupt.h"
@@ -22,6 +23,7 @@ void test10();
 void test11();
 void test12();
 void test13();
+void test14();
 
 
 void main(){
@@ -31,7 +33,8 @@ void main(){
 	timer_init();
 	task_init();
 	time_init();
+	timers_init();
 
-	task_create(test13, 0, 0, 1024, "main");
+	task_create(test14, 0, 0, 1024, "main");
 	task_start();
 }

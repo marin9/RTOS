@@ -26,6 +26,8 @@ void timer_clr();
 uint timer_get();
 void timer_set(uint us);
 void timer_wait(uint us);
+void timer3_clr();
+void timer3_set(uint us);
 
 void pic_init();
 void pic_enable(uint irqn);
