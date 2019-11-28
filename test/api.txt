@@ -15,7 +15,7 @@ TASK:
 +	int task_set_prio(uint p);
 +	int task_suspend(uint id);
 +	int task_resume(uint id);
-+	int task_joint(uint id);	
++	int task_join(uint id);	
 
 SEM:
 +	int sem_init(uint id, uint val);
@@ -47,24 +47,11 @@ MBOX:
 +	int mbox_try_recv(uint id, void *msg);
 
 TIMERS:
-	int timer_init(func fn, char *name);
-	int timer_start(int id, int begin, int period);
-	int timer_stop(int id);
-	int timer_delete(int id);
+	int timer_init(uint id, func fn, char *name);
+	int timer_start(uint id, int begin, int period);
+	int timer_stop(uint id);
+	int timer_getstatus(uint id);
 	int timer_getid(char *name);
-
-RINGBUF:
-	void ringbuf_init(ringbuf_t *rb, char *buf, int size);
-	int ringbuf_send(ringbuf_t *rb, char *data, int size);
-	int ringbuf_recv(ringbuf_t *rb, char data, int size);
-	int ringbuf_full(ringbuf_t *rb);
-	int ringbuf_empty(ringbuf_t *rb);
-
-MEM_HEAP:
-	mem_init
-	mem_alloc
-	mem_calloc
-	mem_free
 
 MEM_POOL:
 +	mpool_init
