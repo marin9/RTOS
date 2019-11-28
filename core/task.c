@@ -251,11 +251,11 @@ int task_release(task_queue_t *q){
 
 	task_enqueue(&queue_ready[t->prio], t);
 	t->status=TASK_READY;
-	return 0;
+	return t->id;
 }
 
 void task_release_all(task_queue_t *q){
-	while(!task_release(q));
+	while(task_release(q) >= 0);
 }
 
 int task_get_id(){

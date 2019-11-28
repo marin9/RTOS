@@ -4,6 +4,7 @@
 #define PRIO_COUNT		4
 #define SEM_COUNT		4
 #define MUX_COUNT		4
+#define COND_COUNT		6
 #define EVENT_COUNT		4
 #define MBOX_COUNT		4
 #define MBOX_SIZE		4

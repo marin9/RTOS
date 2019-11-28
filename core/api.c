@@ -2,6 +2,7 @@
 #include "cpu.h"
 #include "task.h"
 #include "mbox.h"
+#include "cond.h"
 #include "mutex.h"
 #include "event.h"
 
@@ -173,6 +174,38 @@ int os_mux_trylock(uint id){
 	int r;
 	uint sr=sys_entry();
 	r=mux_trylock(id);
+	sys_exit(sr);
+	return r;
+}
+
+int os_cond_init(uint id){
+	int r;
+	uint sr=sys_entry();
+	r=cond_init(id);
+	sys_exit(sr);
+	return r;
+}
+
+int os_cond_wait(uint id, uint mx_id){
+	int r;
+	uint sr=sys_entry();
+	r=cond_wait(id, mx_id);
+	sys_exit(sr);
+	return r;
+}
+
+int os_cond_signal(uint id){
+	int r;
+	uint sr=sys_entry();
+	r=cond_signal(id);
+	sys_exit(sr);
+	return r;
+}
+
+int os_cond_broadcast(uint id){
+	int r;
+	uint sr=sys_entry();
+	r=cond_broadcast(id);
 	sys_exit(sr);
 	return r;
 }

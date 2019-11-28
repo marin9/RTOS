@@ -28,10 +28,10 @@ MONITOR:
 +	int mux_lock(uint id);
 +	int mux_unlock(uint id);
 +	int mux_trylock(uint id);
-	int cond_init(cond_t *c);
-	int cond_wait(cond_t *c, mutex_t *m);
-	int cond_signal(cond_t *c);
-	int cond_broadcast(cond_t *c);
++	int cond_init(cond_t *c);
++	int cond_wait(cond_t *c, mutex_t *m);
++	int cond_signal(cond_t *c);
++	int cond_broadcast(cond_t *c);
 
 FLAGS:
 +	int event_init(uint id);

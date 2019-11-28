@@ -27,6 +27,11 @@ int os_mux_lock(uint id);
 int os_mux_unlock(uint id);
 int os_mux_trylock(uint id);
 
+int os_cond_init(uint id);
+int os_cond_wait(uint id, uint mx_id);
+int os_cond_signal(uint id);
+int os_cond_broadcast(uint id);
+
 int os_event_init(uint id);
 int os_event_set(uint id, uint f);
 int os_event_wait_all(uint id, uint f);
