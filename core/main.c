@@ -25,6 +25,8 @@ void test12();
 void test13();
 void test14();
 
+void blink();
+
 
 void main(){
 	uart_init();
@@ -35,6 +37,6 @@ void main(){
 	time_init();
 	timers_init();
 
-	task_create(test14, 0, 0, 1024, "main");
+	task_create(blink, 0, 0, 1024, "main");
 	task_start();
 }
