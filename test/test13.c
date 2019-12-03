@@ -84,7 +84,6 @@ void test13(){
 		sticks[i]=1;
 	}
 
-	time_delay(6000000);
 
 	os_task_create(philosopher, (void*)0, 1, 1024, 0);
 	os_task_sleep(100);

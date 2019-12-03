@@ -4,7 +4,6 @@
 #define LED_PIN		47
 
 
-
 void blink(){
 	gpio_open(LED_PIN, GP_OUT);
 

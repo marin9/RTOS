@@ -38,7 +38,7 @@ void task_init(){
 	active_task=0;
 	sched_running=0;
 	task_queue_init(&sleep_queue);
-	task_create(task_idle, 0, 0, 64, "idle");
+	task_create(task_idle, 0, PRIO_MIN, 64, "idle");
 }
 
 void task_start(){

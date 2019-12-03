@@ -38,7 +38,6 @@ static void task3(){
 
 void test11(){
 	char c;
-
 	os_event_init(0);
 
 	os_task_create(task0, 0, 1, 1024, 0);

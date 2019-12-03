@@ -74,7 +74,6 @@ static void producers(void *args){
 
 void test10(){
 	int i;
-	time_delay(6000000);
 
 	n=100;
 	in=out=0;

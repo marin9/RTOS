@@ -26,8 +26,6 @@ static void t3(){
 
 
 void test14(){
-	time_delay(6000000);
-
 	os_tmr_init(0, 0, 1000, t1);
 	os_tmr_init(1, 10000, 1000, t2);
 	os_tmr_init(2, 15000, 0, t3);

@@ -30,9 +30,6 @@ static void taskX(){
 
 
 void test4(){
-	time_delay(5000000);
-	uart_print("Start\r\n");
-
 	os_task_create(task0, "T 0\r\n", 1, 1024, 0);
 	os_task_create(task0, "T  1\r\n", 1, 1024, 0);
 	os_task_create(task0, "T   2\r\n", 1, 1024, 0);

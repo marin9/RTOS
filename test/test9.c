@@ -20,9 +20,6 @@ static void task0(void *args){
 
 
 void test9(){
-	time_delay(5000000);
-	uart_print("Start\r\n");
-
 	os_mux_init(2);
 	os_task_create(task0, "T 0\r\n", 2, 2024, 0);
 	os_task_create(task0, "T  1\r\n", 2, 2024, 0);

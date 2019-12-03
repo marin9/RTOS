@@ -4,7 +4,7 @@ CFLAGS=-nostdlib -ffreestanding -O2 -Wall -Wextra
 LDFLAGS=-nostdlib -lgcc
 HDFLAGS=-I$(CORE)/include -I$(LIB)/include \
 		-I$(CPU)/include -I$(DEV)/include \
-		-I$(PROG)/include
+		-I$(PROG)/include -I$(TEST)/include
 
 CPU=cpu
 DEV=dev
@@ -30,6 +30,7 @@ SRC_INC		+= $(wildcard $(DEV)/include/*.h)
 SRC_INC		+= $(wildcard $(LIB)/include/*.h)
 SRC_INC		+= $(wildcard $(CORE)/include/*.h)
 SRC_INC		+= $(wildcard $(PROG)/include/*.h)
+SRC_INC		+= $(wildcard $(TEST)/include/*.h)
 
 OBJ_ASM		:= $(SRC_ASM:$(CPU)/%.S=$(OBJ)/%.o)
 OBJ_CPU		+= $(SRC_CPU:$(CPU)/%.c=$(OBJ)/%.o)

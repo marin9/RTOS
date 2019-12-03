@@ -13,3 +13,6 @@
 #define STACK_SPACE		(16*1024)
 #define NAME_LEN		16
 #define TICK_TIME		1000
+#define STACK_DEFAULT	(2*1024)
+#define PRIO_DEFAULT	1
+#define PRIO_MIN		0

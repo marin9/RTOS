@@ -51,7 +51,6 @@ static void task2(){
 
 void test12(){
 	os_mbox_init(0);
-	time_delay(6000000);
 
 	os_task_create(task0, 0, 1, 1024, 0);
 	time_delay(30000);
