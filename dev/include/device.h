@@ -49,11 +49,11 @@ int uart_write(int unit, void* buffer, int size);
 void pwm_init();
 int pwm_write(int unit, void* buffer, int size);
 
-void spi_init();
-void spi_begin();
-void spi_end();
-void spi_sendByte(char byte);
-char spi_readByte();
+void soft_spi_init(uint cs, uint ck, uint si, uint so);
+void soft_spi_begin();
+void soft_spi_end();
+void soft_spi_sendByte(char byte);
+char soft_spi_readByte();
 
 void flash_init();
 int flash_read(int unit, void* buffer, int nblocks, int offset);
