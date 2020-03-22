@@ -49,6 +49,10 @@ int uart_write(int unit, void* buffer, int size);
 void pwm_init();
 int pwm_write(int unit, void* buffer, int size);
 
+void soft_pwm_init();
+void soft_pwm_open(uint n, uint pin);
+void soft_pwm_write(uint n, uint val);
+
 void soft_spi_init(uint cs, uint ck, uint si, uint so);
 void soft_spi_begin();
 void soft_spi_end();
@@ -58,3 +62,4 @@ char soft_spi_readByte();
 void flash_init();
 int flash_read(int unit, void* buffer, int nblocks, int offset);
 int flash_write(int unit, void* buffer, int nblocks, int offset);
+
